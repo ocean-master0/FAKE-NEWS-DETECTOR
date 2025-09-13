@@ -1,0 +1,1148 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - Fake News Detector{% endblock %}
+
+{% block content %}
+<style>
+/* Contact Page Specific Styles */
+.contact-hero {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%);
+    color: white;
+    padding: 8rem 0 6rem;
+    margin-top: -80px;
+    padding-top: 12rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="20" cy="20" r="3"/></g></svg>') repeat;
+    animation: contactFloat 15s ease-in-out infinite;
+}
+
+@keyframes contactFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(180deg); }
+}
+
+.contact-hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.contact-title {
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.contact-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+.contact-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.contact-stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all var(--transition-normal);
+}
+
+.contact-stat-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    opacity: 0.9;
+}
+
+.contact-content {
+    padding: 6rem 0;
+    background: var(--bg-primary);
+}
+
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 6rem;
+}
+
+.contact-form-section {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-2xl);
+    padding: 3rem;
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-xl);
+}
+
+.form-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.form-description {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.required-star {
+    color: var(--error-color);
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+    width: 100%;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+    resize: none;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-input.error,
+.form-textarea.error,
+.form-select.error {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+.form-input.valid,
+.form-textarea.valid,
+.form-select.valid {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 2rem;
+    color: white;
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.btn-loading {
+    display: none;
+}
+
+.submit-btn.loading .btn-content {
+    display: none;
+}
+
+.submit-btn.loading .btn-loading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.contact-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-method {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    border: 1px solid var(--border-primary);
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contact-method:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.contact-details h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.contact-details p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.contact-details a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
+}
+
+.response-time {
+    background: var(--primary-color);
+    color: white;
+    border-radius: var(--radius-2xl);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.response-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.response-text {
+    opacity: 0.9;
+}
+
+.faq-section {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-2xl);
+    padding: 3rem;
+    margin: 4rem 0;
+}
+
+.faq-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.faq-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.faq-description {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.faq-item {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-primary);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
+
+.faq-item:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+.faq-question {
+    padding: 1.5rem;
+    background: var(--bg-primary);
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all var(--transition-fast);
+}
+
+.faq-question:hover {
+    background: var(--bg-secondary);
+}
+
+.faq-icon {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    transition: transform var(--transition-fast);
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal) ease-out;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 200px;
+}
+
+.faq-answer-content {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.office-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.office-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    border: 1px solid var(--border-primary);
+    text-align: center;
+    transition: all var(--transition-normal);
+}
+
+.office-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+}
+
+.office-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 auto 1.5rem;
+}
+
+.office-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.office-info {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.social-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    border-radius: var(--radius-2xl);
+    padding: 3rem;
+    text-align: center;
+    margin: 4rem 0;
+}
+
+.social-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.social-description {
+    font-size: 1.125rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.5rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--transition-normal);
+}
+
+.social-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.social-icon {
+    font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .contact-form-section {
+        padding: 2rem;
+    }
+    
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .social-links {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .contact-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-form-section {
+        padding: 1.5rem;
+    }
+    
+    .faq-section {
+        padding: 2rem 1.5rem;
+    }
+    
+    .social-section {
+        padding: 2rem 1.5rem;
+    }
+    
+    .contact-stats {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<!-- Contact Hero Section -->
+<section class="contact-hero">
+    <div class="contact-hero-content">
+        <h1 class="contact-title">Get In Touch</h1>
+        <p class="contact-subtitle">
+            We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+        </p>
+        
+        <div class="contact-stats">
+            <div class="contact-stat-card">
+                <span class="stat-number">&lt;24h</span>
+                <span class="stat-label">Response Time</span>
+            </div>
+            <div class="contact-stat-card">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Support Available</span>
+            </div>
+            <div class="contact-stat-card">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Privacy Protected</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="contact-content">
+    <div class="content-container">
+        
+        <!-- Contact Form and Info Grid -->
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <h2 class="form-title">Send us a Message</h2>
+                <p class="form-description">
+                    Have questions, feedback, or suggestions? Fill out the form below and we'll get back to you promptly.
+                </p>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-user"></i>
+                            Full Name <span class="required-star">*</span>
+                        </label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                        <div class="error-message" id="nameError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            <i class="fas fa-envelope"></i>
+                            Email Address <span class="required-star">*</span>
+                        </label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                        <div class="error-message" id="emailError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject" class="form-label">
+                            <i class="fas fa-tag"></i>
+                            Subject <span class="required-star">*</span>
+                        </label>
+                        <select id="subject" name="subject" class="form-select" required>
+                            <option value="">Select a subject</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="feedback">Feedback & Suggestions</option>
+                            <option value="partnership">Partnership Opportunities</option>
+                            <option value="press">Press & Media</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="error-message" id="subjectError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">
+                            <i class="fas fa-comment"></i>
+                            Message <span class="required-star">*</span>
+                        </label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="Tell us how we can help you..." required></textarea>
+                        <div class="error-message" id="messageError"></div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="btn-content">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </span>
+                        <span class="btn-loading">
+                            <div class="loading-spinner"></div>
+                            Sending...
+                        </span>
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="contact-info-section">
+                <h2 class="section-title">Reach Out to Us</h2>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email Support</h4>
+                            <p><a href="mailto:contact@fakenewsdetector.com">contact@fakenewsdetector.com</a></p>
+                            <p>Response within 24 hours</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Open Source</h4>
+                            <p><a href="https://github.com/fakenews-detector" target="_blank">github.com/fakenews-detector</a></p>
+                            <p>Open source contributions welcome</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Social Media</h4>
+                            <p><a href="https://twitter.com/FakeNewsDetector" target="_blank">@FakeNewsDetector</a></p>
+                            <p>Latest updates and news</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Professional Network</h4>
+                            <p><a href="https://linkedin.com/company/fake-news-detector" target="_blank">linkedin.com/company/fake-news-detector</a></p>
+                            <p>Professional networking</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="response-time">
+                    <div class="response-title">Quick Response Guarantee</div>
+                    <div class="response-text">
+                        We typically respond to inquiries within <strong>24 hours</strong> during business days.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-header">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+                <p class="faq-description">Find quick answers to common questions</p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How accurate is your fake news detector?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Our fake news detector achieves over 99.8% accuracy on tested datasets. However, we recommend using it as a tool to assist your judgment rather than the sole determinant of news authenticity.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you store our article data?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            No, we do not store any article content on our servers. All analysis is performed in real-time, and your data remains private. History is stored locally in your browser only.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What languages do you support?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Currently, our detector is optimized for English language content. We're working on expanding support for other languages in future updates.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I use this for commercial purposes?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Please contact us to discuss commercial usage and licensing options. We offer different plans for educational, non-profit, and commercial use cases.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How can I contribute to the project?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            You can contribute by reporting bugs, suggesting improvements, or contributing to our open-source repository on GitHub. We also welcome feedback on detection accuracy.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Is the service completely free?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes! Our fake news detection service is completely free for personal and educational use. We believe in making fact-checking tools accessible to everyone.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Office Locations -->
+        <div class="office-section">
+            <div class="office-card">
+                <div class="office-icon">
+                    <i class="fas fa-globe-americas"></i>
+                </div>
+                <h3 class="office-title">Global Headquarters</h3>
+                <div class="office-info">
+                    <p><strong>Virtual Office</strong></p>
+                    <p>Serving users worldwide</p>
+                    <p>24/7 Support Available</p>
+                </div>
+            </div>
+            
+            <div class="office-card">
+                <div class="office-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="office-title">Development Team</h3>
+                <div class="office-info">
+                    <p><strong>Remote-First</strong></p>
+                    <p>Distributed globally</p>
+                    <p>Open Source Community</p>
+                </div>
+            </div>
+            
+            <div class="office-card">
+                <div class="office-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="office-title">Community Support</h3>
+                <div class="office-info">
+                    <p><strong>Online Community</strong></p>
+                    <p>GitHub & Discord</p>
+                    <p>Active Contributors</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Social Media Section -->
+        <div class="social-section">
+            <h2 class="social-title">Connect With Us</h2>
+            <p class="social-description">
+                Follow us on social media for the latest updates, tips, and community discussions
+            </p>
+            
+            <div class="social-links">
+                <a href="https://twitter.com/FakeNewsDetector" class="social-link" target="_blank">
+                    <i class="fab fa-twitter social-icon"></i>
+                    <span>Twitter</span>
+                </a>
+                <a href="https://github.com/fakenews-detector" class="social-link" target="_blank">
+                    <i class="fab fa-github social-icon"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://linkedin.com/company/fake-news-detector" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin social-icon"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://discord.gg/fakenews-detector" class="social-link" target="_blank">
+                    <i class="fab fa-discord social-icon"></i>
+                    <span>Discord</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Contact Page JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    initializeContactPage();
+});
+
+function initializeContactPage() {
+    setupContactForm();
+    setupFAQ();
+    setupAnimations();
+    console.log('✅ Contact page initialized successfully');
+}
+
+// Contact Form Functionality
+function setupContactForm() {
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    if (!form || !submitBtn) return;
+    
+    // Form validation
+    const inputs = form.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('blur', () => validateField(input));
+        input.addEventListener('input', () => clearError(input));
+    });
+    
+    // Form submission
+    form.addEventListener('submit', handleFormSubmit);
+}
+
+function validateField(field) {
+    const value = field.value.trim();
+    const fieldName = field.name;
+    let isValid = true;
+    let errorMessage = '';
+    
+    // Required field validation
+    if (field.hasAttribute('required') && !value) {
+        isValid = false;
+        errorMessage = `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+    }
+    
+    // Email validation
+    if (field.type === 'email' && value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            isValid = false;
+            errorMessage = 'Please enter a valid email address';
+        }
+    }
+    
+    // Message length validation
+    if (field.name === 'message' && value && value.length < 10) {
+        isValid = false;
+        errorMessage = 'Message must be at least 10 characters long';
+    }
+    
+    // Update field appearance
+    field.classList.toggle('error', !isValid);
+    field.classList.toggle('valid', isValid && value);
+    
+    // Show/hide error message
+    const errorElement = document.getElementById(fieldName + 'Error');
+    if (errorElement) {
+        errorElement.textContent = errorMessage;
+        errorElement.classList.toggle('show', !isValid);
+    }
+    
+    return isValid;
+}
+
+function clearError(field) {
+    field.classList.remove('error');
+    const errorElement = document.getElementById(field.name + 'Error');
+    if (errorElement) {
+        errorElement.classList.remove('show');
+    }
+}
+
+async function handleFormSubmit(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const submitBtn = document.getElementById('submitBtn');
+    const formData = new FormData(form);
+    
+    // Validate all fields
+    const inputs = form.querySelectorAll('input, select, textarea');
+    let isFormValid = true;
+    
+    inputs.forEach(input => {
+        if (!validateField(input)) {
+            isFormValid = false;
+        }
+    });
+    
+    if (!isFormValid) {
+        showToast('Please fix the errors before submitting', 'error');
+        return;
+    }
+    
+    // Show loading state
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    try {
+        // Simulate form submission (replace with actual endpoint)
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Success response
+        showToast('✅ Message sent successfully! We\'ll get back to you soon.', 'success', 5000);
+        form.reset();
+        
+        // Clear validation classes
+        inputs.forEach(input => {
+            input.classList.remove('valid', 'error');
+        });
+        
+    } catch (error) {
+        console.error('Form submission error:', error);
+        showToast('❌ Failed to send message. Please try again later.', 'error');
+    } finally {
+        // Reset button state
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+    }
+}
+
+// FAQ Functionality
+function setupFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all other FAQ items
+            faqItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+            
+            // Toggle current item
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+}
+
+// Animation setup
+function setupAnimations() {
+    // Animate contact stats on scroll
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                animateContactStats();
+                entry.target.classList.add('animated');
+            }
+        });
+    }, observerOptions);
+    
+    const contactStats = document.querySelector('.contact-stats');
+    if (contactStats) {
+        observer.observe(contactStats);
+    }
+    
+    // Stagger animations for contact methods
+    const contactMethods = document.querySelectorAll('.contact-method');
+    contactMethods.forEach((method, index) => {
+        method.style.opacity = '0';
+        method.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            method.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            method.style.opacity = '1';
+            method.style.transform = 'translateY(0)';
+        }, index * 200);
+    });
+}
+
+function animateContactStats() {
+    const statNumbers = document.querySelectorAll('.contact-stat-card .stat-number');
+    
+    statNumbers.forEach(stat => {
+        const text = stat.textContent;
+        
+        if (text === '<24h') {
+            animateText(stat, '<24h', 1000);
+        } else if (text === '24/7') {
+            animateText(stat, '24/7', 1200);
+        } else if (text === '100%') {
+            animateNumber(stat, 0, 100, 1500, (value) => Math.round(value) + '%');
+        }
+    });
+}
+
+function animateText(element, finalText, duration) {
+    element.textContent = '';
+    
+    setTimeout(() => {
+        element.textContent = finalText;
+        element.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+            element.style.transform = 'scale(1)';
+        }, 200);
+    }, duration / 2);
+}
+
+function animateNumber(element, start, end, duration, formatter) {
+    const startTime = performance.now();
+    
+    const updateNumber = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeOutQuart(progress);
+        const current = start + (end - start) * eased;
+        
+        element.textContent = formatter ? formatter(current) : Math.round(current);
+        
+        if (progress < 1) {
+            requestAnimationFrame(updateNumber);
+        }
+    };
+    
+    requestAnimationFrame(updateNumber);
+}
+
+function easeOutQuart(t) {
+    return 1 - Math.pow(1 - t, 4);
+}
+
+// Toast notification function
+function showToast(message, type = 'info', duration = 4000) {
+    if (window.FakeNewsDetector && window.FakeNewsDetector.showToast) {
+        window.FakeNewsDetector.showToast(message, type, duration);
+    } else {
+        // Fallback alert
+        alert(message);
+    }
+}
+
+// Export functions for global access
+window.ContactPage = {
+    setupContactForm,
+    setupFAQ,
+    validateField,
+    handleFormSubmit
+};
+</script>
+
+{% endblock %}

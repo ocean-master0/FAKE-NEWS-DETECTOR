@@ -1,0 +1,397 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="hero-particles"></div>
+    <div class="hero-gradient"></div>
+    
+    <div class="hero-container">
+        <div class="hero-badge">
+            <i class="fas fa-shield-alt"></i>
+            <span>AI-Powered Detection</span>
+        </div>
+        
+        <h1 class="hero-title">
+            Detect <span class="gradient-text">Fake News</span> with
+            <span class="highlight-text">Advanced AI</span>
+        </h1>
+        
+        <p class="hero-description">
+            Instantly verify news authenticity using our state-of-the-art machine learning model. 
+            Trained on 44,000+ articles with industry-leading accuracy to help you distinguish 
+            between real and fake news in seconds.
+        </p>
+        
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-number">99<span class="stat-symbol">.8%</span></span>
+                    <span class="stat-label">Accuracy Rate</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-number">0<span class="stat-symbol">.2s</span></span>
+                    <span class="stat-label">Analysis Time</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-number">44<span class="stat-symbol">K+</span></span>
+                    <span class="stat-label">Training Articles</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-actions">
+            <button class="cta-primary" onclick="document.getElementById('analyzer-section').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-search"></i>
+                <span>Start Analysis</span>
+            </button>
+            <a href="#features" class="cta-secondary">
+                <i class="fas fa-info-circle"></i>
+                <span>Learn More</span>
+            </a>
+        </div>
+        
+        <div class="trust-badges">
+            <div class="badge-item">
+                <i class="fas fa-shield-check"></i>
+                <span>Secure & Private</span>
+            </div>
+            <div class="badge-item">
+                <i class="fas fa-bolt"></i>
+                <span>Lightning Fast</span>
+            </div>
+            <div class="badge-item">
+                <i class="fas fa-award"></i>
+                <span>Industry Leading</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="scroll-indicator">
+        <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+        </div>
+        <span>Scroll to analyze</span>
+    </div>
+</section>
+
+<!-- Analyzer Section -->
+<section id="analyzer-section" class="analyzer-section">
+    <div class="analyzer-container">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-robot"></i>
+                <span>AI Analysis</span>
+            </div>
+            <h2 class="section-title">News Authenticity Analyzer</h2>
+            <p class="section-description">
+                Paste any news article below for instant AI-powered authenticity analysis with 
+                detailed confidence scores and explanations.
+            </p>
+        </div>
+        
+        <div class="analyzer-card">
+            <div class="analyzer-header">
+                <div class="status-indicator">
+                    <div class="status-dot online"></div>
+                    <span class="status-text">AI Model Online</span>
+                </div>
+                <div class="model-info">
+                    <div class="model-name">Advanced NLP Model v2.1</div>
+                    <div class="model-accuracy">99.8% Accuracy</div>
+                </div>
+            </div>
+            
+            <!-- THIS IS THE CRITICAL FORM THAT WAS MISSING PROPER IDs -->
+            <form id="analyzerForm" class="analyzer-form">
+                <div class="form-section">
+                    <label for="newsHeadline" class="form-label">
+                        <i class="fas fa-heading"></i>
+                        <span>News Headline</span>
+                        <span class="optional-tag">Optional</span>
+                    </label>
+                    <div class="input-container">
+                        <input 
+                            type="text" 
+                            id="newsHeadline" 
+                            class="form-input" 
+                            placeholder="Enter the news headline (optional)"
+                            maxlength="200"
+                        >
+                        <div id="headlineCount" class="input-counter">0/200</div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <label for="newsContent" class="form-label">
+                        <i class="fas fa-file-text"></i>
+                        <span>Article Content</span>
+                        <span class="required-tag">Required</span>
+                    </label>
+                    <div class="textarea-container">
+                        <textarea 
+                            id="newsContent" 
+                            class="form-textarea" 
+                            placeholder="Paste the full article content here for analysis..."
+                            maxlength="5000"
+                            required
+                        ></textarea>
+                        <div id="contentCount" class="content-counter">0/5000</div>
+                    </div>
+                    <div class="textarea-tools">
+                        <div class="tool-buttons">
+                            <button type="button" id="clearContent" class="tool-btn" title="Clear Content">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button type="button" id="pasteContent" class="tool-btn" title="Paste from Clipboard">
+                                <i class="fas fa-clipboard"></i>
+                            </button>
+                        </div>
+                        <div class="content-stats">
+                            <span class="word-count">0 words</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" id="analyzeBtn" class="analyze-btn">
+                        <div class="btn-content">
+                            <i class="fas fa-search"></i>
+                            <span>Analyze Article</span>
+                        </div>
+                        <div class="btn-loading">
+                            <div class="loading-spinner"></div>
+                            <span>Analyzing...</span>
+                        </div>
+                    </button>
+                    <button type="button" id="resetBtn" class="reset-btn">
+                        <i class="fas fa-redo"></i>
+                        <span>Reset</span>
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Results Container - THIS WAS MISSING THE CORRECT ID -->
+            <div id="resultsContainer" class="results-container">
+                <div class="results-card">
+                    <div class="results-header">
+                        <div id="resultBadge" class="result-badge">
+                            <i id="resultIcon" class="result-icon"></i>
+                            <span id="resultText">Analysis Result</span>
+                        </div>
+                        <div id="resultTimestamp" class="result-timestamp"></div>
+                    </div>
+                    
+                    <div class="confidence-section">
+                        <div class="confidence-header">
+                            <h3>Confidence Level</h3>
+                            <div id="confidenceValue" class="confidence-value">0%</div>
+                        </div>
+                        <div class="confidence-visualizer">
+                            <div class="confidence-bar">
+                                <div id="confidenceFill" class="confidence-fill"></div>
+                            </div>
+                            <div class="confidence-labels">
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                                <span>Very High</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-metrics">
+                        <div class="metric-item">
+                            <i class="fas fa-file-alt"></i>
+                            <div class="metric-content">
+                                <div class="metric-label">Content Length</div>
+                                <div id="contentLength" class="metric-value">-</div>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <i class="fas fa-stopwatch"></i>
+                            <div class="metric-content">
+                                <div class="metric-label">Processing Time</div>
+                                <div id="processingTime" class="metric-value">-</div>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <i class="fas fa-cogs"></i>
+                            <div class="metric-content">
+                                <div class="metric-label">Model Version</div>
+                                <div class="metric-value">v2.1</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button class="action-btn primary" onclick="window.historyManager && window.historyManager.addToHistory && window.historyManager.addToHistory(window.lastAnalysisResult)">
+                            <i class="fas fa-save"></i>
+                            <span>Save Result</span>
+                        </button>
+                        <button class="action-btn secondary" onclick="copyAnalysisResult()">
+                            <i class="fas fa-copy"></i>
+                            <span>Copy Result</span>
+                        </button>
+                        <button class="action-btn secondary" onclick="shareAnalysisResult()">
+                            <i class="fas fa-share"></i>
+                            <span>Share</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="features-section">
+    <div class="features-container">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-star"></i>
+                <span>Key Features</span>
+            </div>
+            <h2 class="section-title">Advanced technology meets user-friendly design</h2>
+            <p class="section-description">
+                Our AI-powered system combines cutting-edge machine learning with an intuitive interface
+                to deliver accurate fake news detection in real-time.
+            </p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Lightning Fast</h3>
+                    <p>Get instant results in under 0.2 seconds with our optimized ML pipeline</p>
+                    <div class="feature-metric">
+                        <span class="metric-number">0.2</span>
+                        <span class="metric-unit">seconds</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>High Accuracy</h3>
+                    <p>Industry-leading 99.8% accuracy trained on 44,000+ verified articles</p>
+                    <div class="feature-metric">
+                        <span class="metric-number">99.8</span>
+                        <span class="metric-unit">% accuracy</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Responsive Design</h3>
+                    <p>Fully responsive design that works seamlessly across all devices</p>
+                    <div class="feature-metric">
+                        <span class="metric-number">100</span>
+                        <span class="metric-unit">% responsive</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Privacy First</h3>
+                    <p>Zero data storage - your articles are analyzed and immediately discarded</p>
+                    <div class="feature-metric">
+                        <span class="metric-number">0</span>
+                        <span class="metric-unit">data stored</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Back to Top Button -->
+<button id="backToTop" class="back-to-top">
+    <i class="fas fa-chevron-up"></i>
+</button>
+
+<script>
+// Global variables for result management
+window.lastAnalysisResult = null;
+
+// Copy analysis result function
+function copyAnalysisResult() {
+    if (!window.lastAnalysisResult) {
+        window.FakeNewsDetector && window.FakeNewsDetector.showToast('No analysis result to copy', 'warning');
+        return;
+    }
+    
+    const result = window.lastAnalysisResult;
+    const text = `Analysis Result: ${result.result}\nConfidence: ${result.confidence}%\nTimestamp: ${new Date().toLocaleString()}`;
+    
+    navigator.clipboard.writeText(text).then(() => {
+        window.FakeNewsDetector && window.FakeNewsDetector.showToast('Result copied to clipboard!', 'success');
+    }).catch(() => {
+        window.FakeNewsDetector && window.FakeNewsDetector.showToast('Failed to copy result', 'error');
+    });
+}
+
+// Share analysis result function
+function shareAnalysisResult() {
+    if (!window.lastAnalysisResult) {
+        window.FakeNewsDetector && window.FakeNewsDetector.showToast('No analysis result to share', 'warning');
+        return;
+    }
+    
+    const result = window.lastAnalysisResult;
+    const text = `I just analyzed a news article with AI: ${result.result} (${result.confidence}% confidence)`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'Fake News Detection Result',
+            text: text,
+            url: window.location.href
+        });
+    } else {
+        copyAnalysisResult();
+    }
+}
+
+// Update word count functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const contentTextarea = document.getElementById('newsContent');
+    const wordCountElement = document.querySelector('.word-count');
+    
+    if (contentTextarea && wordCountElement) {
+        contentTextarea.addEventListener('input', function() {
+            const words = this.value.trim().split(/\s+/).filter(word => word.length > 0);
+            wordCountElement.textContent = `${words.length} words`;
+        });
+    }
+});
+</script>
+
+{% endblock %}

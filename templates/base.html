@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Fake News Detector - AI-Powered Truth Verification{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Advanced AI-powered fake news detector with 99.8% accuracy. Instantly verify news authenticity using state-of-the-art machine learning technology.">
+    <meta name="keywords" content="fake news detector, AI, machine learning, news verification, misinformation, fact checking">
+    <meta name="author" content="Fake News Detector">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Fake News Detector - AI-Powered Truth Verification">
+    <meta property="og:description" content="Detect fake news with 99.8% accuracy using advanced AI technology">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fake News Detector - AI-Powered Truth Verification">
+    <meta name="twitter:description" content="Detect fake news with 99.8% accuracy using advanced AI technology">
+</head>
+
+<body>
+    <!-- REMOVED THE PROBLEMATIC LOADING SCREEN THAT WAS CAUSING ISSUES -->
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="nav-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="brand-text">
+                    <div class="brand-name">FakeNews</div>
+                    <div class="brand-suffix">Detector</div>
+                    <div class="brand-tagline">AI Powered</div>
+                </div>
+            </a>
+            
+            <div class="nav-menu">
+                <a href="{{ url_for('index') }}" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="{{ url_for('about') }}" class="nav-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Project</span>
+                </a>
+                <a href="{{ url_for('model_info') }}" class="nav-link">
+                    <i class="fas fa-brain"></i>
+                    <span>AI Model Info</span>
+                </a>
+                <a href="{{ url_for('contact') }}" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Get In Touch</span>
+                </a>
+            </div>
+            
+            <div class="nav-controls">
+                <button id="themeToggle" class="control-btn theme-toggle" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button id="mobileMenuToggle" class="control-btn mobile-toggle">
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="mobile-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>FakeNews Detector</span>
+            </div>
+            <button class="mobile-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-nav">
+            <a href="{{ url_for('index') }}" class="mobile-link">
+                <div>
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <a href="{{ url_for('about') }}" class="mobile-link">
+                <div>
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Project</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <a href="{{ url_for('model_info') }}" class="mobile-link">
+                <div>
+                    <i class="fas fa-brain"></i>
+                    <span>AI Model Info</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <a href="{{ url_for('contact') }}" class="mobile-link">
+                <div>
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>FakeNews Detector</span>
+                    </div>
+                    <p class="footer-description">
+                        Advanced AI-powered fake news detection system helping users identify 
+                        misinformation with industry-leading accuracy and lightning-fast analysis.
+                    </p>
+                    <div class="footer-stats">
+                        <div class="stat-badge">
+                            <span class="stat-number">99.8%</span>
+                            <span class="stat-label">Accuracy</span>
+                        </div>
+                        <div class="stat-badge">
+                            <span class="stat-number">44K+</span>
+                            <span class="stat-label">Articles</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Features</h4>
+                    <a href="#analyzer-section">AI Analysis</a>
+                    <a href="#features">Key Features</a>
+                    <a href="{{ url_for('about') }}">How It Works</a>
+                    <a href="{{ url_for('model_info') }}">Model Info</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <a href="{{ url_for('about') }}">About Project</a>
+                    <a href="{{ url_for('contact') }}">Contact Us</a>
+                    <a href="#" onclick="window.FakeNewsDetector && window.FakeNewsDetector.showToast('Privacy policy coming soon!', 'info')">Privacy Policy</a>
+                    <a href="#" onclick="window.FakeNewsDetector && window.FakeNewsDetector.showToast('Terms coming soon!', 'info')">Terms of Service</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <a href="mailto:contact@fakenewsdetector.com">Email Support</a>
+                    <a href="#" onclick="window.FakeNewsDetector && window.FakeNewsDetector.showToast('GitHub link coming soon!', 'info')">GitHub Repository</a>
+                    <a href="#" onclick="window.FakeNewsDetector && window.FakeNewsDetector.showToast('Documentation coming soon!', 'info')">Documentation</a>
+                    <a href="#" onclick="window.FakeNewsDetector && window.FakeNewsDetector.showToast('API access coming soon!', 'info')">API Access</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        <p>&copy; 2025 FakeNews Detector. All rights reserved. Powered by AI.</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files - PROPER LOADING ORDER IS CRITICAL -->
+    <script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/history.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Additional Script for Result Storage -->
+    <script>
+    // Store analysis results globally for sharing/copying
+    document.addEventListener('DOMContentLoaded', function() {
+        // Listen for analysis completion
+        window.addEventListener('analysisComplete', function(event) {
+            window.lastAnalysisResult = event.detail;
+        });
+    });
+    </script>
+</body>
+</html>

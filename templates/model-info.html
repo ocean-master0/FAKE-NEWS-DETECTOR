@@ -1,0 +1,1031 @@
+{% extends "base.html" %}
+
+{% block title %}AI Model Information - Fake News Detector{% endblock %}
+
+{% block content %}
+<style>
+/* Model Info Specific Styles */
+.model-hero {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%);
+    color: white;
+    padding: 6rem 0 4rem;
+    margin-top: -80px;
+    padding-top: 10rem;
+}
+
+.model-hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.model-title {
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.model-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+.model-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.model-stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+.model-content {
+    padding: 6rem 0;
+    background: var(--bg-primary);
+}
+
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-nav {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
+}
+
+.nav-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.content-section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--primary-color);
+    display: inline-block;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.info-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    border: 1px solid var(--border-primary);
+    transition: all var(--transition-normal);
+}
+
+.info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+}
+
+.info-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-card-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.info-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.info-card-content {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.tech-specs-table {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 2rem;
+}
+
+.table-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    padding: 1.5rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.specs-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.specs-table th,
+.specs-table td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-primary);
+}
+
+.specs-table th {
+    background: var(--bg-tertiary);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.specs-table tr:hover {
+    background: var(--bg-tertiary);
+}
+
+.training-results {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 1px solid var(--border-primary);
+}
+
+.training-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.training-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--success-color), #059669);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.training-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.best-model-badge {
+    background: var(--success-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+.performance-chart {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-primary);
+}
+
+.chart-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.metric-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-primary);
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.metric-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.dataset-card {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    border-radius: var(--radius-xl);
+    padding: 2.5rem;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.dataset-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.dataset-description {
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 1rem 2rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--transition-normal);
+}
+
+.download-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.sample-predictions {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 1px solid var(--border-primary);
+}
+
+.prediction-sample {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--primary-color);
+}
+
+.prediction-sample.fake {
+    border-left-color: var(--error-color);
+}
+
+.prediction-sample.real {
+    border-left-color: var(--success-color);
+}
+
+.prediction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.prediction-result {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.prediction-result.fake {
+    color: var(--error-color);
+}
+
+.prediction-result.real {
+    color: var(--success-color);
+}
+
+.prediction-confidence {
+    background: var(--bg-tertiary);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.prediction-text {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .model-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+
+<!-- Model Hero Section -->
+<section class="model-hero">
+    <div class="model-hero-content">
+        <h1 class="model-title">🚀 Advanced AI Model Architecture</h1>
+        <p class="model-subtitle">
+            Deep dive into our state-of-the-art Natural Language Processing model 
+            designed for accurate fake news detection using advanced machine learning techniques.
+        </p>
+        
+        <div class="model-stats-grid">
+            <div class="model-stat-card">
+                <span class="stat-number">99.80%</span>
+                <span class="stat-label">Best Accuracy</span>
+            </div>
+            <div class="model-stat-card">
+                <span class="stat-number">44,898</span>
+                <span class="stat-label">Training Articles</span>
+            </div>
+            <div class="model-stat-card">
+                <span class="stat-number">0.2s</span>
+                <span class="stat-label">Analysis Speed</span>
+            </div>
+            <div class="model-stat-card">
+                <span class="stat-number">Random Forest</span>
+                <span class="stat-label">Best Model</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="model-content">
+    <div class="content-container">
+        
+        <!-- Navigation -->
+        <div class="section-nav">
+            <h2 class="nav-title">Quick Navigation</h2>
+            <div class="nav-links">
+                <a href="#training-results" class="nav-link active">
+                    <i class="fas fa-rocket"></i>
+                    <span>Training Results</span>
+                </a>
+                <a href="#dataset" class="nav-link">
+                    <i class="fas fa-database"></i>
+                    <span>Dataset</span>
+                </a>
+                <a href="#architecture" class="nav-link">
+                    <i class="fas fa-sitemap"></i>
+                    <span>Architecture</span>
+                </a>
+                <a href="#performance" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Performance</span>
+                </a>
+                <a href="#predictions" class="nav-link">
+                    <i class="fas fa-eye"></i>
+                    <span>Sample Predictions</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Training Results Section -->
+        <div id="training-results" class="content-section">
+            <h2 class="section-title">🚀 Model Training Results</h2>
+            
+            <div class="training-results">
+                <div class="training-header">
+                    <div class="training-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h3 class="training-title">Training Completed Successfully!</h3>
+                        <p style="color: var(--text-secondary); margin: 0;">Best Model: Random Forest with 99.80% accuracy</p>
+                    </div>
+                    <div class="best-model-badge">BEST MODEL</div>
+                </div>
+            </div>
+
+            <!-- Dataset Overview Table -->
+            <div class="tech-specs-table">
+                <div class="table-header">📊 Dataset Overview</div>
+                <table class="specs-table">
+                    <thead>
+                        <tr>
+                            <th>Data Type</th>
+                            <th>Count</th>
+                            <th>Percentage</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Total Articles</strong></td>
+                            <td>44,898</td>
+                            <td>100%</td>
+                            <td>✅ Loaded</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fake News Articles</strong></td>
+                            <td>23,481</td>
+                            <td>52.3%</td>
+                            <td>✅ Processed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Real News Articles</strong></td>
+                            <td>21,417</td>
+                            <td>47.7%</td>
+                            <td>✅ Processed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Articles After Preprocessing</strong></td>
+                            <td>44,889</td>
+                            <td>99.98%</td>
+                            <td>✅ Ready</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Model Comparison Table -->
+            <div class="tech-specs-table">
+                <div class="table-header">🤖 Model Performance Comparison</div>
+                <table class="specs-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Training Accuracy</th>
+                            <th>Testing Accuracy</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: rgba(16, 185, 129, 0.1);">
+                            <td><strong>🏆 Random Forest</strong></td>
+                            <td><strong>100.00%</strong></td>
+                            <td><strong>99.80%</strong></td>
+                            <td><span style="background: var(--success-color); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">BEST MODEL</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Logistic Regression</strong></td>
+                            <td>99.21%</td>
+                            <td>98.74%</td>
+                            <td>✅ Good</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Naive Bayes</strong></td>
+                            <td>94.68%</td>
+                            <td>94.64%</td>
+                            <td>✅ Baseline</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Detailed Classification Report -->
+            <div class="tech-specs-table">
+                <div class="table-header">📈 Random Forest Classification Report</div>
+                <table class="specs-table">
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1-Score</th>
+                            <th>Support</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Fake News</strong></td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>4,695</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Real News</strong></td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>4,283</td>
+                        </tr>
+                        <tr style="background: var(--bg-tertiary);">
+                            <td><strong>Accuracy</strong></td>
+                            <td colspan="3"><strong>1.00</strong></td>
+                            <td><strong>8,978</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Macro Average</strong></td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>8,978</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Weighted Average</strong></td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>8,978</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Confusion Matrix -->
+            <div class="tech-specs-table">
+                <div class="table-header">🎯 Confusion Matrix Analysis</div>
+                <table class="specs-table">
+                    <thead>
+                        <tr>
+                            <th>Prediction Type</th>
+                            <th>Count</th>
+                            <th>Description</th>
+                            <th>Performance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: rgba(16, 185, 129, 0.1);">
+                            <td><strong>✅ True Negative</strong></td>
+                            <td><strong>4,682</strong></td>
+                            <td>Fake correctly identified as Fake</td>
+                            <td>🎯 Perfect</td>
+                        </tr>
+                        <tr style="background: rgba(16, 185, 129, 0.1);">
+                            <td><strong>✅ True Positive</strong></td>
+                            <td><strong>4,278</strong></td>
+                            <td>Real correctly identified as Real</td>
+                            <td>🎯 Perfect</td>
+                        </tr>
+                        <tr style="background: rgba(239, 68, 68, 0.1);">
+                            <td><strong>❌ False Positive</strong></td>
+                            <td><strong>13</strong></td>
+                            <td>Fake incorrectly identified as Real</td>
+                            <td>⚠️ Very Low</td>
+                        </tr>
+                        <tr style="background: rgba(239, 68, 68, 0.1);">
+                            <td><strong>❌ False Negative</strong></td>
+                            <td><strong>5</strong></td>
+                            <td>Real incorrectly identified as Fake</td>
+                            <td>⚠️ Very Low</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Sample Predictions Section -->
+        <div id="predictions" class="content-section">
+            <h2 class="section-title">👁️ Sample Predictions</h2>
+            
+            <div class="sample-predictions">
+                <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">🔍 Testing FAKE NEWS Samples</h3>
+                
+                <div class="prediction-sample fake">
+                    <div class="prediction-header">
+                        <div class="prediction-result fake">Sample 1: Predicted as FAKE</div>
+                        <div class="prediction-confidence">Confidence: 97.00%</div>
+                    </div>
+                    <div class="prediction-text">
+                        "Ben Stein Calls Out 9th Circuit Court: Committed a 'Coup d'état' Against the Constitution 21st Centu..."
+                    </div>
+                </div>
+
+                <div class="prediction-sample fake">
+                    <div class="prediction-header">
+                        <div class="prediction-result fake">Sample 2: Predicted as FAKE</div>
+                        <div class="prediction-confidence">Confidence: 89.00%</div>
+                    </div>
+                    <div class="prediction-text">
+                        "OOPS: Trump Just Accidentally Confirmed He Leaked Israeli Intelligence To Russia (VIDEO) On Monday,..."
+                    </div>
+                </div>
+
+                <div class="prediction-sample fake">
+                    <div class="prediction-header">
+                        <div class="prediction-result fake">Sample 3: Predicted as FAKE</div>
+                        <div class="prediction-confidence">Confidence: 94.00%</div>
+                    </div>
+                    <div class="prediction-text">
+                        "Paul Ryan Responds To Dem's Sit-In On Gun Control In The Most DISGUSTING Way (VIDEO) On Wednesday, ..."
+                    </div>
+                </div>
+
+                <h3 style="margin: 2rem 0 1.5rem; color: var(--text-primary);">✅ Testing REAL NEWS Samples</h3>
+
+                <div class="prediction-sample real">
+                    <div class="prediction-header">
+                        <div class="prediction-result real">Sample 1: Predicted as REAL</div>
+                        <div class="prediction-confidence">Confidence: 100.00%</div>
+                    </div>
+                    <div class="prediction-text">
+                        "Trump drops Steve Bannon from National Security Council WASHINGTON (Reuters) - U.S. President Donald..."
+                    </div>
+                </div>
+
+                <div class="prediction-sample real">
+                    <div class="prediction-header">
+                        <div class="prediction-result real">Sample 2: Predicted as REAL</div>
+                        <div class="prediction-confidence">Confidence: 95.00%</div>
+                    </div>
+                    <div class="prediction-text">
+                        "Puerto Rico expects U.S. to lift Jones Act shipping restrictions (Reuters) - Puerto Rico Governor Ri..."
+                    </div>
+                </div>
+
+                <div class="prediction-sample real">
+                    <div class="prediction-header">
+                        <div class="prediction-result real">Sample 3: Predicted as REAL</div>
+                        <div class="prediction-confidence">Confidence: 91.00%</div>
+                    </div>
+                    <div class="prediction-text">
+                        "Donald Trump heads for Scotland to reopen a golf resort GLASGOW, Scotland (Reuters) - Most U.S. pres..."
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dataset Section -->
+        <div id="dataset" class="content-section">
+            <h2 class="section-title">📊 Training Dataset</h2>
+            
+            <div class="dataset-card">
+                <h3 class="dataset-title">
+                    <i class="fab fa-kaggle"></i>
+                    Fake News Detection Dataset
+                </h3>
+                <p class="dataset-description">
+                    Comprehensive dataset containing 44,898 verified news articles from multiple sources, 
+                    professionally labeled and preprocessed for machine learning applications. 
+                    Includes both genuine news from reputable sources and confirmed fake news articles.
+                </p>
+                <a href="https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="download-btn">
+                    <i class="fas fa-download"></i>
+                    <span>Download Dataset from Kaggle</span>
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Architecture Section -->
+        <div id="architecture" class="content-section">
+            <h2 class="section-title">🏗️ Technical Architecture</h2>
+            
+            <div class="tech-specs-table">
+                <div class="table-header">Model Specifications</div>
+                <table class="specs-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Specification</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Best Model</strong></td>
+                            <td>Random Forest Classifier</td>
+                            <td>Primary classification algorithm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Preprocessing</strong></td>
+                            <td>NLTK + Porter Stemmer</td>
+                            <td>Text cleaning and normalization</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vectorization</strong></td>
+                            <td>TF-IDF Vectorizer</td>
+                            <td>Text feature representation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Training Split</strong></td>
+                            <td>80% Train / 20% Test</td>
+                            <td>Model validation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Framework</strong></td>
+                            <td>scikit-learn + NLTK</td>
+                            <td>Model implementation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Model Storage</strong></td>
+                            <td>Pickle (.pkl) format</td>
+                            <td>Model persistence</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Performance Section -->
+        <div id="performance" class="content-section">
+            <h2 class="section-title">📈 Performance Metrics</h2>
+            
+            <div class="performance-chart">
+                <h3 class="chart-title">Random Forest Model Evaluation Results</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <span class="metric-value">99.80%</span>
+                        <span class="metric-label">Testing Accuracy</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">100.00%</span>
+                        <span class="metric-label">Training Accuracy</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">1.00</span>
+                        <span class="metric-label">Precision</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">1.00</span>
+                        <span class="metric-label">Recall</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">1.00</span>
+                        <span class="metric-label">F1-Score</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">18</span>
+                        <span class="metric-label">Total Errors</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Model Info Page JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    initializeModelInfo();
+});
+
+function initializeModelInfo() {
+    setupNavigationHighlight();
+    setupSmoothScrolling();
+    setupAnimatedCounters();
+    setupInteractiveElements();
+    console.log('✅ Model Info page initialized successfully');
+}
+
+// Navigation highlight functionality
+function setupNavigationHighlight() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('.content-section');
+    
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '-100px 0px -50% 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const targetId = entry.target.id;
+                
+                navLinks.forEach(link => link.classList.remove('active'));
+                
+                const activeLink = document.querySelector(`.nav-link[href="#${targetId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        });
+    }, observerOptions);
+    
+    sections.forEach(section => observer.observe(section));
+}
+
+// Smooth scrolling for navigation links
+function setupSmoothScrolling() {
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                const headerOffset = 120;
+                const elementPosition = targetSection.offsetTop;
+                const offsetPosition = elementPosition - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                
+                history.pushState(null, null, `#${targetId}`);
+            }
+        });
+    });
+}
+
+// Animated counters for statistics
+function setupAnimatedCounters() {
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                animateCounter(entry.target);
+                entry.target.classList.add('counted');
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.metric-value, .stat-number').forEach(counter => {
+        counterObserver.observe(counter);
+    });
+}
+
+function animateCounter(element) {
+    const text = element.textContent;
+    const number = parseFloat(text.replace(/[^0-9.]/g, ''));
+    
+    if (isNaN(number)) return;
+    
+    const suffix = text.replace(/[0-9.]/g, '');
+    const duration = 2000;
+    const steps = 60;
+    const increment = number / steps;
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        
+        if (current >= number) {
+            current = number;
+            clearInterval(timer);
+        }
+        
+        let displayValue;
+        if (text.includes('%')) {
+            displayValue = current.toFixed(1) + '%';
+        } else if (number >= 1000) {
+            displayValue = Math.round(current).toLocaleString() + suffix;
+        } else if (number < 1) {
+            displayValue = current.toFixed(2) + suffix;
+        } else {
+            displayValue = current.toFixed(0) + suffix;
+        }
+        
+        element.textContent = displayValue;
+    }, duration / steps);
+}
+
+// Interactive elements
+function setupInteractiveElements() {
+    // Add hover effects to info cards
+    const infoCards = document.querySelectorAll('.info-card, .prediction-sample');
+    infoCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-4px) scale(1.01)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // Add click tracking for download button
+    const downloadBtn = document.querySelector('.download-btn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', function() {
+            console.log('📊 Dataset download initiated');
+            
+            if (window.FakeNewsDetector && window.FakeNewsDetector.showToast) {
+                window.FakeNewsDetector.showToast(
+                    '🚀 Redirecting to Kaggle dataset...', 
+                    'info', 
+                    3000
+                );
+            }
+            
+            const originalText = this.innerHTML;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Opening Kaggle...</span>';
+            
+            setTimeout(() => {
+                this.innerHTML = originalText;
+            }, 2000);
+        });
+    }
+}
+
+// Export functions for global access
+window.ModelInfo = {
+    animateCounter,
+    setupNavigationHighlight,
+    setupSmoothScrolling
+};
+</script>
+
+{% endblock %}

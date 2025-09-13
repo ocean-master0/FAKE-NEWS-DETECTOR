@@ -1,0 +1,846 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - Fake News Detector{% endblock %}
+
+{% block content %}
+<style>
+/* About Page Specific Styles */
+.about-hero {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%);
+    color: white;
+    padding: 8rem 0 6rem;
+    margin-top: -80px;
+    padding-top: 12rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="30" cy="30" r="4"/></g></svg>') repeat;
+    animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.about-hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.about-title {
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.about-subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.about-stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all var(--transition-normal);
+}
+
+.about-stat-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+.about-content {
+    padding: 8rem 0;
+    background: var(--bg-primary);
+}
+
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.about-section {
+    margin-bottom: 6rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: var(--radius-full);
+}
+
+.section-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+.mission-vision-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.mission-card, .vision-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-2xl);
+    padding: 3rem;
+    border: 1px solid var(--border-primary);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.mission-card::before, .vision-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+}
+
+.mission-card:hover, .vision-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-2xl);
+    border-color: var(--primary-color);
+}
+
+.card-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    margin: 0 auto 2rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.card-content {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.how-it-works {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-2xl);
+    padding: 4rem 3rem;
+    margin: 4rem 0;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.step-card {
+    text-align: center;
+    position: relative;
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto 1.5rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.step-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.step-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature-item {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    border: 1px solid var(--border-primary);
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.feature-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.feature-content h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.feature-content p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.technology-stack {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-2xl);
+    padding: 3rem;
+    margin: 4rem 0;
+    text-align: center;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.tech-item {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-primary);
+    transition: all var(--transition-normal);
+}
+
+.tech-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.tech-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.tech-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.cta-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    border-radius: var(--radius-2xl);
+    padding: 4rem 3rem;
+    text-align: center;
+    margin: 4rem 0;
+}
+
+.cta-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.cta-description {
+    font-size: 1.125rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 1rem 2rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: all var(--transition-normal);
+}
+
+.cta-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .mission-vision-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .about-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .mission-card, .vision-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .how-it-works {
+        padding: 3rem 2rem;
+    }
+    
+    .cta-section {
+        padding: 3rem 2rem;
+    }
+    
+    .tech-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<!-- About Hero Section -->
+<section class="about-hero">
+    <div class="about-hero-content">
+        <h1 class="about-title">About Our Mission</h1>
+        <p class="about-subtitle">
+            Learn how our AI-powered system combats misinformation and promotes 
+            informed decision-making in the digital age through cutting-edge technology.
+        </p>
+        
+        <div class="about-stats">
+            <div class="about-stat-card">
+                <span class="stat-number">99.8%</span>
+                <span class="stat-label">Accuracy Rate</span>
+            </div>
+            <div class="about-stat-card">
+                <span class="stat-number">44K+</span>
+                <span class="stat-label">Articles Analyzed</span>
+            </div>
+            <div class="about-stat-card">
+                <span class="stat-number">100K+</span>
+                <span class="stat-label">Users Served</span>
+            </div>
+            <div class="about-stat-card">
+                <span class="stat-number">0.2s</span>
+                <span class="stat-label">Analysis Speed</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="about-content">
+    <div class="content-container">
+        
+        <!-- Introduction Section -->
+        <div class="about-section">
+            <h2 class="section-title">Fighting Misinformation with AI</h2>
+            <div class="section-content">
+                <p>
+                    The <strong>Fake News Detector</strong> is an advanced machine learning application designed to help users identify potentially misleading or false news articles. In today's digital age, misinformation spreads rapidly across social media and news platforms, making it crucial to have reliable tools for verification.
+                </p>
+                <br>
+                <p>
+                    Our system analyzes text patterns, language structure, and content characteristics using state-of-the-art Natural Language Processing techniques. By training on thousands of verified news articles, our AI model can distinguish between legitimate journalism and potentially false information with industry-leading accuracy.
+                </p>
+            </div>
+        </div>
+
+        <!-- Mission & Vision -->
+        <div class="about-section">
+            <h2 class="section-title">Our Mission & Vision</h2>
+            <div class="mission-vision-grid">
+                <div class="mission-card">
+                    <div class="card-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="card-title">Our Mission</h3>
+                    <div class="card-content">
+                        <p>
+                            To empower individuals with reliable tools to identify misinformation and promote informed decision-making in the digital age. We believe that informed citizens are the foundation of a healthy democracy.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="vision-card">
+                    <div class="card-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="card-title">Our Vision</h3>
+                    <div class="card-content">
+                        <p>
+                            In an era where information travels faster than ever, we envision a world where everyone has access to accurate, reliable news verification tools that help distinguish between trustworthy sources and potential misinformation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="about-section">
+            <div class="how-it-works">
+                <h2 class="section-title" style="margin-bottom: 1rem;">How It Works</h2>
+                <p style="text-align: center; color: var(--text-secondary); font-size: 1.125rem; margin-bottom: 0;">
+                    Our AI-powered detection system uses a sophisticated 4-step process
+                </p>
+                
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Content Submission</h3>
+                        <p class="step-description">
+                            User submits a news headline and/or article content for analysis through our secure web interface.
+                        </p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Text Processing</h3>
+                        <p class="step-description">
+                            The text undergoes cleaning, tokenization, and feature extraction using advanced NLP techniques.
+                        </p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">AI Analysis</h3>
+                        <p class="step-description">
+                            Our trained machine learning model analyzes patterns and linguistic features to make predictions.
+                        </p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Results & Insights</h3>
+                        <p class="step-description">
+                            The system provides a classification (Real/Fake) with a confidence score and detailed analysis.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="about-section">
+            <h2 class="section-title">Why Choose Our Platform?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Lightning Fast Analysis</h4>
+                        <p>Get instant results in under 0.2 seconds with our optimized ML pipeline and advanced caching system.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Industry-Leading Accuracy</h4>
+                        <p>99.8% accuracy rate trained on 44,000+ verified articles from trusted news sources worldwide.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Fully Responsive Design</h4>
+                        <p>Works seamlessly across all devices - desktop, tablet, and mobile with optimized user experience.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Privacy Protection</h4>
+                        <p>Zero data storage - your articles are analyzed and immediately discarded. Complete user anonymity.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Detailed Analytics</h4>
+                        <p>Comprehensive confidence scores, analysis metrics, and explanations for every detection result.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Free for Everyone</h4>
+                        <p>Accessible, accurate, and completely free tools available to users worldwide with no restrictions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="about-section">
+            <div class="technology-stack">
+                <h2 class="section-title" style="margin-bottom: 1rem;">Powered by Advanced Technology</h2>
+                <p style="color: var(--text-secondary); font-size: 1.125rem; margin-bottom: 0;">
+                    Built with cutting-edge technologies and proven methodologies
+                </p>
+                
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <div class="tech-icon">🐍</div>
+                        <div class="tech-name">Python</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">🤖</div>
+                        <div class="tech-name">Machine Learning</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">🧠</div>
+                        <div class="tech-name">NLTK</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">📊</div>
+                        <div class="tech-name">scikit-learn</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">🌐</div>
+                        <div class="tech-name">Flask</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">⚡</div>
+                        <div class="tech-name">TF-IDF</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">🔄</div>
+                        <div class="tech-name">Random Forest</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">📱</div>
+                        <div class="tech-name">Responsive UI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Commitment -->
+        <div class="about-section">
+            <h2 class="section-title">Our Commitment to You</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>High-Precision Detection</h4>
+                        <p>Commitment to high-precision detection using proven ML techniques and continuous model improvements.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Free & Accessible</h4>
+                        <p>Free, easy-to-use tools available to everyone with no hidden costs or premium restrictions.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Privacy First</h4>
+                        <p>No data collection, ensuring complete user anonymity and privacy protection at all times.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Transparent Methodology</h4>
+                        <p>Open methodology and clear result explanations to help users understand our detection process.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2 class="cta-title">Ready to Fight Misinformation?</h2>
+            <p class="cta-description">
+                Join thousands of users who trust our AI-powered detection system to verify news authenticity and make informed decisions.
+            </p>
+            <a href="/" class="cta-button">
+                <i class="fas fa-search"></i>
+                <span>Start Analyzing Now</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+// About Page JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    initializeAboutPage();
+});
+
+function initializeAboutPage() {
+    setupScrollAnimations();
+    setupInteractiveElements();
+    setupAnimatedCounters();
+    console.log('✅ About page initialized successfully');
+}
+
+// Scroll animations for elements
+function setupScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all section elements
+    document.querySelectorAll('.about-section, .feature-item, .step-card, .tech-item').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// Interactive hover effects
+function setupInteractiveElements() {
+    // Add enhanced hover effects to cards
+    const cards = document.querySelectorAll('.feature-item, .step-card, .tech-item, .mission-card, .vision-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // CTA button interaction
+    const ctaButton = document.querySelector('.cta-button');
+    if (ctaButton) {
+        ctaButton.addEventListener('click', function() {
+            console.log('🚀 User navigating to main analyzer');
+            
+            if (window.FakeNewsDetector && window.FakeNewsDetector.showToast) {
+                window.FakeNewsDetector.showToast(
+                    '🎯 Redirecting to news analyzer...', 
+                    'info', 
+                    2000
+                );
+            }
+        });
+    }
+}
+
+// Animated number counters
+function setupAnimatedCounters() {
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                animateStatNumber(entry.target);
+                entry.target.classList.add('counted');
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.stat-number').forEach(counter => {
+        counterObserver.observe(counter);
+    });
+}
+
+function animateStatNumber(element) {
+    const text = element.textContent;
+    const finalNumber = parseFloat(text.replace(/[^0-9.]/g, ''));
+    
+    if (isNaN(finalNumber)) return;
+    
+    const suffix = text.replace(/[0-9.]/g, '');
+    const duration = 2000;
+    const steps = 60;
+    const increment = finalNumber / steps;
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        
+        if (current >= finalNumber) {
+            current = finalNumber;
+            clearInterval(timer);
+        }
+        
+        let displayValue;
+        if (text.includes('%')) {
+            displayValue = current.toFixed(1) + '%';
+        } else if (text.includes('K+')) {
+            displayValue = Math.round(current) + 'K+';
+        } else if (text.includes('s')) {
+            displayValue = current.toFixed(1) + 's';
+        } else {
+            displayValue = Math.round(current) + suffix;
+        }
+        
+        element.textContent = displayValue;
+    }, duration / steps);
+}
+
+// Export functions for global access
+window.AboutPage = {
+    animateStatNumber,
+    setupScrollAnimations
+};
+</script>
+
+{% endblock %}
