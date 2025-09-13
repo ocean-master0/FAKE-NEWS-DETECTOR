@@ -661,25 +661,3 @@ If this project helped you, please ⭐ star it on GitHub!
 ---
 
 <div align="center">
-
-**🛡️ Made with ❤️ for a better informed world**
-
-![Built with Flask](https://img.shields.io/badge/Built%20with-Flask-green
-
-
-
-![99.8% Accurate](https://img.shields.io/badge/99.8%25-Accurate-bright-fake-news-detector---ai-powered-misinformation-detection-system)**
-
-</div>
-
-[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50205712/1ca8fd9d-7ad6-40b6-a20f-a87f1c047c6c/app.py)
-[2](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50205712/988e4269-fc1a-44f1-b0e8-5d550c82c1f0/about.html)
-[3](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50205712/6e2cb6f4-df40-4052-9505-9eac83b1af7f/base.html)
-[4](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50205712/4c39476f-d770-4083-a6f0-90289dc9018b/contact.html)
-[5](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50205712/02d868f8-6d31-4383-97e9-3aabde0f0914/index.html)
-[6](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50205712/2cf8ae73-1a4f-496c-9455-65898d5d7467/darkmode.js)
-[7](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50205712/6ffcbb37-6e43-41d3-8cfc-de541cdc60c2/history.js)
-[8](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50205712/e6a267fb-3072-4527-ac81-7242f5c180eb/main.js)
-[9](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50205712/60f75fee-3cd2-40a7-94ae-1966eca0167f/animations.css)
-[10](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50205712/72d866cb-3c67-4491-9b93-356d046c3049/style.css)
-[11](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50205712/556533d9-d4e0-4c87-a19f-96d419196e60/model-info.html)
