@@ -1,15 +1,29 @@
+# 🛡️ **Fake News Detector - AI-Powered Misinformation Detection System**
+
 <div align="center">
 
-[Python](https://img.shields.io
+<h1>🛡️ Fake News Detector</h1>
+<h4><em>AI system to detect fake news with 99.8% accuracy</em></h4>
 
+<!-- ✅ Badges -->
+<p>
+  <img src="https://img.shields.io/badge/Python-3.8+-blue?logo=python" alt="Python" />
+  <img src="https://img.shields.io/badge/Flask-2.3-lightgrey?logo=flask" alt="Flask" />
+  <img src="https://img.shields.io/badge/Model-BERT%20%2B%20LogReg-green" alt="Model" />
+  <img src="https://img.shields.io/badge/Accuracy-99.8%25-brightgreen" alt="Accuracy" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License" />
+  <img src="https://img.shields.io/badge/Status-Production-blue" alt="Status" />
+</p>
 
-[Flask](https://img.shields.io/badge/Flask-2.0io/badge/ML-BERT%20%2B%20Logistic%20/badge/Accuracy-99.8%25-brightgreen.svg/badge/License-MIT-yellow/badge/Status-Production%-leading AI system to detect fake news with 99.8% accuracy**
-
-[🚀 Live Demo](#-live-demo) -  [📊 Dataset](#-dataset) -  [⚡ Quick Start](#-quick-start) -  [🎨 Features](#-features)
+<!-- ✅ Navigation links -->
+<p>
+  <a href="#-live-demo">🚀 Live Demo</a> •
+  <a href="#-dataset-information">📊 Dataset</a> •
+  <a href="#-quick-start-guide">⚡ Quick Start</a> •
+  <a href="#-key-features">🎨 Features</a>
+</p>
 
 </div>
-
-
 
 ## 📋 **Table of Contents**
 
