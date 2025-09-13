@@ -1,5 +1,3 @@
-# 🛡️ **Fake News Detector - AI-Powered Misinformation Detection System**
-
 <div align="center">
 
 [Python](https://img.shields.io
