@@ -2,10 +2,10 @@
 
 <div align="center">
 
-![Python](https://img.shields.io
+[Python](https://img.shields.io
 
 
-![Flask](https://img.shields.io/badge/Flask-2.0io/badge/ML-BERT%20%2B%20Logistic%20/badge/Accuracy-99.8%25-brightgreen.svg/badge/License-MIT-yellow/badge/Status-Production%-leading AI system to detect fake news with 99.8% accuracy**
+[Flask](https://img.shields.io/badge/Flask-2.0io/badge/ML-BERT%20%2B%20Logistic%20/badge/Accuracy-99.8%25-brightgreen.svg/badge/License-MIT-yellow/badge/Status-Production%-leading AI system to detect fake news with 99.8% accuracy**
 
 [🚀 Live Demo](#-live-demo) -  [📊 Dataset](#-dataset) -  [⚡ Quick Start](#-quick-start) -  [🎨 Features](#-features)
 
