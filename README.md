@@ -141,7 +141,7 @@ Actual     │       │      │
 
 ```bash
 # 1️⃣ Clone the repository
-git clone https://github.com/your-username/fake-news-detector.git
+git clone https://github.com/ocean-master0/FAKE-NEWS-DETECTOR.git
 cd fake-news-detector
 
 # 2️⃣ Install dependencies
@@ -591,7 +591,7 @@ We welcome contributions! Here's how you can help:
 ```bash
 # 1️⃣ Fork the repository
 # 2️⃣ Clone your fork
-git clone https://github.com/your-username/fake-news-detector.git
+git clone https://github.com/ocean-master0/FAKE-NEWS-DETECTOR.git
 
 # 3️⃣ Create feature branch
 git checkout -b feature/amazing-feature
@@ -611,53 +611,3 @@ git push origin feature/amazing-feature
 - 🧪 Add tests for new features
 - 📖 Update documentation
 - 🔍 Ensure all tests pass
-
-***
-
-## 📄 **License**
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2025 Fake News Detector
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-```
-
-***
-
-## 🎯 **Roadmap**
-
-### 🔮 **Future Features**
-- 🌍 **Multi-language Support**: Detect fake news in 10+ languages
-- 📱 **Mobile App**: Native iOS and Android applications  
-- 🔌 **API Premium**: Advanced features for enterprise users
-- 🧠 **GPT Integration**: Enhanced analysis with large language models
-- 📊 **Analytics Dashboard**: Detailed statistics and trends
-
----
-
-## 💬 **Support**
-
-### 🆘 **Get Help**
-- 📧 **Email**: support@fakenewsdetector.com
-- 🐛 **Issues**: [GitHub Issues](https://github.com/your-username/fake-news-detector/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/your-username/fake-news-detector/discussions)
-- 📖 **Documentation**: [Wiki](https://github.com/your-username/fake-news-detector/wiki)
-
-### 🌟 **Show Your Support**
-If this project helped you, please ⭐ star it on GitHub!
-
----
-
-<div align="center">
